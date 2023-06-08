@@ -1,6 +1,7 @@
 from Grid import Grid
 from Jeton import Jeton
 from Eval import eval_grid
+from MinMax import MinMax
 
 # la colonne est un entier entre 0 et 6
 # la ligne est un entier entre 0 et 5 ; 5 est la ligne du bas; 0 est la ligne du haut
@@ -83,3 +84,5 @@ grid.play(6, joueurJaune)
 
 print(grid.toString())
 print(eval_grid(grid, Jeton.JAUNE, Jeton.ROUGE))
+print(MinMax(3,grid))
+print(grid.toString())

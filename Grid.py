@@ -19,6 +19,15 @@ class Grid:
                 print("Jeton joué en colonne " + str(column) + " et en ligne " + str(i))
                 return True
         return False
+    
+    def remove_token(self, column):
+        for i in range(6):
+            if self.grid[i][column] != Jeton.VIDE:
+                self.grid[i][column] = Jeton.VIDE
+                print("Jeton supprimé de la colonne " + str(column) + " et de la ligne " + str(i))
+                return True
+        return False
+
         
 
 
@@ -41,10 +50,11 @@ class Grid:
         for i in range(6):
             if self.grid[0][i] == Jeton.VIDE:
                 liste.append(i)
+        print(liste)
         return liste
     
     def isFeuille(self):
-        return len(self.colonnePossible) == 0
+        return len(self.colonnePossible()) == 0
 
     def eval1(self, couleur :int):
         total = 0

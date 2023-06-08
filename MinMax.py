@@ -1,9 +1,11 @@
 
 from Grid import Grid
 from Jeton import Jeton
-from Joueur import Joueur
+from Eval import eval_grid
 import math
 
+jetonR = Jeton(Jeton.ROUGE)
+jetonJ = Jeton(Jeton.JAUNE)
 
 def MinMax(profondeur, grid:Grid) :
     eval, action = JoueurMax(grid, profondeur)
@@ -14,12 +16,13 @@ def MinMax(profondeur, grid:Grid) :
 
 def JoueurMax(n: Grid, p):
     if n.isFeuille() or p == 0:
-        return n.eval(Jeton.ROUGE), None
+        return eval_grid(n,jetonR,jetonJ), None
     u = -math.inf
     a = None
     for i in n.colonnePossible():
-        f = n.play(i, Joueur.Rouge)
+        n.play(i, jetonR)
         eval, _ = JoueurMin(n, p - 1)
+        n.remove_token(i)
         if eval > u:
             u = eval
             a = i           #af = i car c'est l'action à faire
@@ -29,12 +32,13 @@ def JoueurMax(n: Grid, p):
 # JoueurMin sera le joueur Jaune
 def JoueurMin(n:Grid, p):
     if n.isFeuille() or p == 0:
-        return n.eval(Jeton.JAUNE), None
+        return eval_grid(n,jetonJ,jetonR), None
     u = math.inf
     a = None
     for i in n.colonnePossible():
-        f = n.play(i, Joueur.Jaune)
+        n.play(i, jetonJ)
         eval, _ = JoueurMax(n, p - 1)
+        n.remove_token(i)
         if eval < u:
             u = eval
             a = i           #af = i car c'est l'action à faire
