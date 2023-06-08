@@ -1,6 +1,6 @@
 from Grid import Grid
 from Jeton import Jeton
-
+from Eval import eval_grid
 
 # la colonne est un entier entre 0 et 6
 # la ligne est un entier entre 0 et 5 ; 5 est la ligne du bas; 0 est la ligne du haut
@@ -42,5 +42,44 @@ def Soleveur_puissanse_quatre (Grid :Grid, couleur :int) :  # A faire
 grid = Grid()
 joueurJaune = Jeton(Jeton.JAUNE)
 joueurRouge = Jeton(Jeton.ROUGE)
+grid.play(0, joueurRouge)
+grid.play(0, joueurRouge)
+grid.play(0, joueurJaune)
+grid.play(0, joueurRouge)
+
+grid.play(1, joueurJaune)
+grid.play(1, joueurJaune)
+grid.play(1, joueurRouge)
+grid.play(1, joueurJaune)
+grid.play(1, joueurRouge)
+
+grid.play(2, joueurJaune)
+grid.play(2, joueurJaune)
+grid.play(2, joueurRouge)
+grid.play(2, joueurJaune)
+
+grid.play(3, joueurRouge)
+grid.play(3, joueurRouge)
 grid.play(3, joueurJaune)
+
+grid.play(4, joueurJaune)
+grid.play(4, joueurRouge)
+grid.play(4, joueurJaune)
+
+grid.play(5, joueurJaune)
+grid.play(5, joueurJaune)
+grid.play(5, joueurJaune)
+grid.play(5, joueurRouge)
+grid.play(5, joueurRouge)
+grid.play(5, joueurRouge)
+
+grid.play(6, joueurRouge)
+grid.play(6, joueurRouge)
+grid.play(6, joueurRouge)
+grid.play(6, joueurJaune)
+grid.play(6, joueurJaune)
+grid.play(6, joueurJaune)
+
+
 print(grid.toString())
+print(eval_grid(grid, Jeton.JAUNE, Jeton.ROUGE))

@@ -28,11 +28,11 @@ class Grid:
         for i in self.grid:
             for j in i:
                 if j == Jeton.JAUNE:
-                    text += "O"
+                    text += "O "
                 elif j == Jeton.ROUGE:
-                    text += "X"
+                    text += "X "
                 elif j == Jeton.VIDE:
-                    text += "#"
+                    text += "# "
             text += "\n"
         return text
     
@@ -46,29 +46,64 @@ class Grid:
     def isFeuille(self):
         return len(self.colonnePossible) == 0
 
-    def eval(self, couleur :int):
+    def eval1(self, couleur :int):
+        total = 0
+        count = 0
+        countVide = 0
+
         # Vérification des lignes
         for i in range(6):
-            for j in range(4):
-                if self.grid[i][j] == couleur and self.grid[i][j+1] == couleur and self.grid[i][j+2] == couleur and self.grid[i][j+3] == couleur:
-                    return True
+            for j in range(5):
+                if self.grid[i][j] == couleur:
+                    count += 1
+                    countVide = 0
+                elif self.grid[i][j] == Jeton.VIDE and j != 5:
+                    countVide += 1
+                else:
+                    if count == 1 and countVide >= 3:
+                        total += 1
+                    if count == 2 and countVide >= 2:
+                        total += 5
+                    if count == 3 and countVide >= 1:
+                        total += 50
+                    if count == 4:
+                        total += 1000
+                    count = 0
+                    countVide = 0
+
 
         # Vérification des colonnes
-        for i in range(3):
-            for j in range(7):
-                if self.grid[i][j] == couleur and self.grid[i+1][j] == couleur and self.grid[i+2][j] == couleur and self.grid[i+3][j] == couleur:
-                    return True
+        for i in range(5):
+            for j in range(6):
+                if self.grid[i][j] == couleur:
+                    count += 1
+                    countVide = 0
+                elif self.grid[i][j] == Jeton.VIDE and i != 6:
+                    countVide += 1
+                else:
+                    if count == 1 and countVide >= 3:
+                        total += 1
+                    if count == 2 and countVide >= 2:
+                        total += 5
+                    if count == 3 and countVide >= 1:
+                        total += 50
+                    if count == 4:
+                        total += 1000
+                    count = 0
+                    countVide = 0
+                
+
 
         # Vérification des diagonales ascendantes
         for i in range(3):
             for j in range(4):
-                if self.grid[i][j] == couleur and self.grid[i+1][j+1] == couleur and self.grid[i+2][j+2] == couleur and self.grid[i+3][j+3] == couleur:
+                if self.grid[i][j] == couleur:
                     return True
 
         # Vérification des diagonales descendantes
         for i in range(3, 6):
             for j in range(4):
-                if self.grid[i][j] == couleur and self.grid[i-1][j+1] == couleur and self.grid[i-2][j+2] == couleur and self.grid[i-3][j+3] == couleur:
+                if self.grid[i][j] == couleur:
                     return True
 
         return False
