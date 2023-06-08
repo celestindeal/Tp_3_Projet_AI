@@ -8,7 +8,6 @@ def eval_grid(grid : Grid, couleurValide : int, couleurAdverse : int):
     # Vérification des lignes
     for j in range(6):
         for i in range(4):
-            compte = 0
             if grid.grid[i][j] == couleurValide and grid.grid[i][j+1] == couleurValide and grid.grid[i][j+2] == couleurValide and grid.grid[i][j+3] == couleurValide:
                 nbpoint += 100
             elif grid.grid[i][j] == couleurValide and grid.grid[i][j+1] == couleurValide and grid.grid[i][j+2] == couleurValide:
@@ -76,5 +75,4 @@ def eval_grid(grid : Grid, couleurValide : int, couleurAdverse : int):
                 nbpoint -= 10
             elif grid.grid[i][j] == couleurAdverse and grid.grid[i-1][j+1] == couleurAdverse:
                 nbpoint -= 1
-
     return nbpoint

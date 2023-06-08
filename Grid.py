@@ -16,7 +16,6 @@ class Grid:
         for i in range(5, -1, -1):
             if self.grid[i][column] == Jeton.VIDE:
                 self.grid[i][column] = jeton.couleur
-                print("Jeton joué en colonne " + str(column) + " et en ligne " + str(i))
                 return True
         return False
     
@@ -24,7 +23,6 @@ class Grid:
         for i in range(6):
             if self.grid[i][column] != Jeton.VIDE:
                 self.grid[i][column] = Jeton.VIDE
-                print("Jeton supprimé de la colonne " + str(column) + " et de la ligne " + str(i))
                 return True
         return False
 
@@ -50,7 +48,6 @@ class Grid:
         for i in range(6):
             if self.grid[0][i] == Jeton.VIDE:
                 liste.append(i)
-        print(liste)
         return liste
     
     def isFeuille(self):

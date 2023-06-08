@@ -16,7 +16,8 @@ def MinMax(profondeur, grid:Grid) :
 
 def JoueurMax(n: Grid, p):
     if n.isFeuille() or p == 0:
-        return eval_grid(n,jetonR,jetonJ), None
+        return n.eval1(jetonR.couleur), None
+        #return eval_grid(n,jetonR.couleur,jetonJ.couleur), None
     u = -math.inf
     a = None
     for i in n.colonnePossible():
@@ -32,7 +33,8 @@ def JoueurMax(n: Grid, p):
 # JoueurMin sera le joueur Jaune
 def JoueurMin(n:Grid, p):
     if n.isFeuille() or p == 0:
-        return eval_grid(n,jetonJ,jetonR), None
+        return n.eval1(jetonR.JAUNE), None
+        #return eval_grid(n,jetonJ.couleur,jetonR.couleur), None
     u = math.inf
     a = None
     for i in n.colonnePossible():
