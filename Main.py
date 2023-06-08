@@ -3,8 +3,9 @@ from Jeton import Jeton
 
 
 # la colonne est un entier entre 0 et 6
-# la ligne est un entier entre 0 et 5
+# la ligne est un entier entre 0 et 5 ; 5 est la ligne du bas; 0 est la ligne du haut
 # pour la grid[ligne][colonne]
+
 
 
 

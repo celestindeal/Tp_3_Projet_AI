@@ -35,4 +35,43 @@ class Grid:
                     text += "#"
             text += "\n"
         return text
+    
+    def colonnePossible(self):
+        liste = []
+        for i in range(6):
+            if self.grid[0][i] == Jeton.VIDE:
+                liste.append(i)
+        return liste
+    
+    def isFeuille(self):
+        return len(self.colonnePossible) == 0
+
+    def eval(self, couleur :int):
+        # Vérification des lignes
+        for i in range(6):
+            for j in range(4):
+                if self.grid[i][j] == couleur and self.grid[i][j+1] == couleur and self.grid[i][j+2] == couleur and self.grid[i][j+3] == couleur:
+                    return True
+
+        # Vérification des colonnes
+        for i in range(3):
+            for j in range(7):
+                if self.grid[i][j] == couleur and self.grid[i+1][j] == couleur and self.grid[i+2][j] == couleur and self.grid[i+3][j] == couleur:
+                    return True
+
+        # Vérification des diagonales ascendantes
+        for i in range(3):
+            for j in range(4):
+                if self.grid[i][j] == couleur and self.grid[i+1][j+1] == couleur and self.grid[i+2][j+2] == couleur and self.grid[i+3][j+3] == couleur:
+                    return True
+
+        # Vérification des diagonales descendantes
+        for i in range(3, 6):
+            for j in range(4):
+                if self.grid[i][j] == couleur and self.grid[i-1][j+1] == couleur and self.grid[i-2][j+2] == couleur and self.grid[i-3][j+3] == couleur:
+                    return True
+
+        return False
+    
+
                     
