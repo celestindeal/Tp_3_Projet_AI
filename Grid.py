@@ -31,7 +31,7 @@ class Grid:
 
     def toString(self) -> str:
         ()
-        text = ""
+        text = "O : Jaune\nX : Rouge\n\n"
         for i in self.grid:
             for j in i:
                 if j == Jeton.JAUNE:
@@ -39,8 +39,11 @@ class Grid:
                 elif j == Jeton.ROUGE:
                     text += "X "
                 elif j == Jeton.VIDE:
-                    text += "# "
+                    text += ". "
             text += "\n"
+        for i in range(1, 8, 1):
+            text += str(i) + " "
+        text+= "\n"
         return text
     
     def colonnePossible(self):
@@ -53,6 +56,12 @@ class Grid:
     def isFeuille(self):
         return len(self.colonnePossible()) == 0
 
+    def eval(self, couleur :int):
+        couleurInversee = Jeton.ROUGE
+        if couleur == Jeton.ROUGE:
+            couleurInversee = Jeton.JAUNE
+        return self.eval1(couleur) - self.eval1(couleurInversee)
+
     def eval1(self, couleur :int):
         total = 0
         count = 0
@@ -62,6 +71,8 @@ class Grid:
         for i in range(6):
             for j in range(5):
                 count, countVide, total = self.eval_count(i, j, couleur, count, countVide, total, 6, 5)
+            count = 0
+            countVide = 0
 
         count = 0
         countVide = 0
@@ -70,6 +81,8 @@ class Grid:
         for i in range(5):
             for j in range(6):
                 count, countVide, total = self.eval_count(i, j, couleur, count, countVide, total, 5, 6)
+            count = 0
+            countVide = 0
                 
         count = 0
         countVide = 0
@@ -108,7 +121,6 @@ class Grid:
         return (count, countVide, total)
 
     def parcours_diagonales_descendantes(self, i: int, j:int, couleur: int, count: int, countVide: int, total: int) -> (int, int, int):
-
         rows = len(self.grid)
         cols = len(self.grid[0])
         

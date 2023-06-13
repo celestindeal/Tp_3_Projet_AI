@@ -47,7 +47,7 @@ def jouer(grid: Grid, moi : Jeton, adversaire : Jeton, profondeur : int) :
         print(grid.toString())
         
         valeur = input("Veuillez entrer une valeur : ")
-        grid.play(int(valeur), moi)
+        grid.play(int(valeur)- 1, moi)
 
     if Soleveur_puissanse_quatre(grid, moi.couleur):
         print("J'ai gagné !")
@@ -104,14 +104,4 @@ joueurRouge = Jeton(Jeton.ROUGE)
 # print(MinMax(1,grid))
 # print(grid.toString())
 
-#jouer(grid, joueurJaune, joueurRouge, 5)
-
-
-
-
-grid.play(0, joueurRouge)
-grid.play(1, joueurRouge)
-grid.play(2, joueurRouge)
-grid.play(4, joueurJaune)
-print(grid.toString())
-print(grid.eval1(Jeton.ROUGE))
+jouer(grid, joueurJaune, joueurRouge, 3)
