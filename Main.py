@@ -104,4 +104,14 @@ joueurRouge = Jeton(Jeton.ROUGE)
 # print(MinMax(1,grid))
 # print(grid.toString())
 
-jouer(grid, joueurJaune, joueurRouge, 5)
+#jouer(grid, joueurJaune, joueurRouge, 5)
+
+
+
+
+grid.play(0, joueurRouge)
+grid.play(1, joueurRouge)
+grid.play(2, joueurRouge)
+grid.play(4, joueurJaune)
+print(grid.toString())
+print(grid.eval1(Jeton.ROUGE))

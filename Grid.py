@@ -61,59 +61,108 @@ class Grid:
         # Vérification des lignes
         for i in range(6):
             for j in range(5):
-                if self.grid[i][j] == couleur:
-                    count += 1
-                    countVide = 0
-                elif self.grid[i][j] == Jeton.VIDE and j != 5:
-                    countVide += 1
-                else:
-                    if count == 1 and countVide >= 3:
-                        total += 1
-                    if count == 2 and countVide >= 2:
-                        total += 5
-                    if count == 3 and countVide >= 1:
-                        total += 50
-                    if count == 4:
-                        total += 1000
-                    count = 0
-                    countVide = 0
+                count, countVide, total = self.eval_count(i, j, couleur, count, countVide, total, 6, 5)
 
+        count = 0
+        countVide = 0
 
         # Vérification des colonnes
         for i in range(5):
             for j in range(6):
-                if self.grid[i][j] == couleur:
-                    count += 1
-                    countVide = 0
-                elif self.grid[i][j] == Jeton.VIDE and i != 6:
-                    countVide += 1
-                else:
-                    if count == 1 and countVide >= 3:
-                        total += 1
-                    if count == 2 and countVide >= 2:
-                        total += 5
-                    if count == 3 and countVide >= 1:
-                        total += 50
-                    if count == 4:
-                        total += 1000
-                    count = 0
-                    countVide = 0
+                count, countVide, total = self.eval_count(i, j, couleur, count, countVide, total, 5, 6)
                 
+        count = 0
+        countVide = 0
+        _, _, total = self.parcours_diagonales_ascendantes(i, j, couleur, count, countVide, total)
+        count = 0
+        countVide = 0
+        _, _, total = self.parcours_diagonales_descendantes(i, j, couleur, count, countVide, total)
 
-
-        # Vérification des diagonales ascendantes
-        for i in range(3):
-            for j in range(4):
-                if self.grid[i][j] == couleur:
-                    return True
-
-        # Vérification des diagonales descendantes
-        for i in range(3, 6):
-            for j in range(4):
-                if self.grid[i][j] == couleur:
-                    return True
-
-        return False
+        return total
     
+    def parcours_diagonales_ascendantes(self, i: int, j:int, couleur: int, count: int, countVide: int, total: int) -> (int, int, int):
+        rows = len(self.grid)
+        cols = len(self.grid[0])
 
-                    
+        # Parcours des diagonales supérieures
+        for k in range(rows):
+            i = k
+            j = 0
+            while i >= 0 and j < cols:
+                count, countVide, total = self.eval_count(i, j, couleur, count, countVide, total, 0, cols-1)
+                i -= 1
+                j += 1
+            count = 0
+            countVide = 0
+
+        # Parcours des diagonales inférieures
+        for k in range(1, cols):
+            i = rows - 1
+            j = k
+            while i >= 0 and j < cols:
+                count, countVide, total = self.eval_count(i, j, couleur, count, countVide, total, 0, cols-1)
+                i -= 1
+                j += 1
+            count = 0
+            countVide = 0
+        return (count, countVide, total)
+
+    def parcours_diagonales_descendantes(self, i: int, j:int, couleur: int, count: int, countVide: int, total: int) -> (int, int, int):
+
+        rows = len(self.grid)
+        cols = len(self.grid[0])
+        
+        # Parcours des diagonales descendantes supérieures
+        for k in range(rows):
+            i = k
+            j = cols - 1
+            while i >= 0 and j >= 0:
+                count, countVide, total = self.eval_count(i, j, couleur, count, countVide, total, 0, 0)
+                i -= 1
+                j -= 1
+            count = 0
+            countVide = 0
+        
+        # Parcours des diagonales descendantes inférieures
+        for k in range(1, cols):
+            i = rows - 1
+            j = k - 1
+            while i >= 0 and j >= 0:
+                count, countVide, total = self.eval_count(i, j, couleur, count, countVide, total, 0, 0)
+                i -= 1
+                j -= 1
+            count = 0
+            countVide = 0
+
+        return (count, countVide, total)
+    
+    def eval_count(self, i: int, j:int, couleur: int, count: int, countVide: int, total: int,
+                         iEnd: int, jEnd: int) -> (int, int, int):
+        if self.grid[i][j] == couleur:
+            count += 1
+        elif self.grid[i][j] == Jeton.VIDE: 
+            countVide += 1
+            if i == iEnd or j == jEnd:
+                total = self.get_total(count, countVide, total, i, j)
+                count = 0
+                countVide = 0
+        else:
+            total = self.get_total(count, countVide, total, i, j)
+            count = 0
+            countVide = 0
+
+        return (count, countVide, total)
+    
+    def get_total(self, count, countVide, total, i, j) -> int:
+        if count == 1 and countVide >= 3:
+            total += 1
+        if count == 2 and countVide >= 2:
+            total += 5
+        if count == 3 and countVide >= 1:
+            total += 50
+        if count == 4:
+            total += 1000
+        return total
+        
+
+                        
