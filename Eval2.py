@@ -15,32 +15,35 @@ class Eval2:
 
     def eval1(self, couleur :int):
 
-        # Vérification des lignes
-        print("ligne")
-        for i in range(6):
-            for j in range(5):
-                self.eval_count(i, j, couleur, 6, 5)
+        # Vérification des colonnes
+        #print("col")
+        for j in range(7):
+            for i in range(6):
+                self.eval_count(i, j, couleur, 5, None)
             self.reset()
 
         self.reset()
 
-        # Vérification des colonnes
-        print("col")
+        # Vérification des lignes
+        #print("lignes")
         for i in range(6):
             for j in range(7):
-                self.eval_count(i, j, couleur, 5, 6)
+                self.eval_count(i, j, couleur, None, 6)
             self.reset()
                 
         self.reset()
-        print("da")
+        #print("da")
         self.parcours_diagonales_ascendantes(i, j, couleur)
         self.reset()
-        print("dd")
+        #print("dd")
         self.parcours_diagonales_descendantes(i, j, couleur)
+
+        self.reset()
 
         return self.total
     
     def parcours_diagonales_ascendantes(self, i: int, j:int, couleur: int):
+        """ diagonales ascendantes """
         rows = len(self.grid)
         cols = len(self.grid[0])
 
@@ -65,6 +68,7 @@ class Eval2:
             self.reset()
 
     def parcours_diagonales_descendantes(self, i: int, j:int, couleur: int):
+        """ diagonales descendantes """
         rows = len(self.grid)
         cols = len(self.grid[0])
         
@@ -90,6 +94,8 @@ class Eval2:
 
     
     def eval_count(self, i: int, j:int, couleur: int, iEnd: int, jEnd: int):
+        """ augmenter les compteurs """
+        #print(i, j)
         if self.grid[i][j] == couleur:
             self.count += 1
         elif self.grid[i][j] == Jeton.VIDE: 
@@ -99,22 +105,24 @@ class Eval2:
             self.reset()
             return
 
-        if i == iEnd or j == jEnd:
+        if (iEnd != None and i == iEnd) or (jEnd != None and j == jEnd):
+            #print(i, j)
             self.get_total(i, j)
             self.reset()
 
     
     def get_total(self, i, j) -> int:
+        """ compte les points """
         if self.count == 1 and self.countVide >= 3:
-            print(1, i, j)
+            #print(1, i, j)
             self.total += 1
         if self.count == 2 and self.countVide >= 2:
-            print(5, i, j)
+            #print(5, i, j)
             self.total += 5
         if self.count == 3 and self.countVide >= 1:
-            print(50, i, j)
+            #print(50, i, j)
             self.total += 50
         if self.count == 4:
-            print(1000, i, j)
+            #print(1000, i, j)
             self.total += 1000
         

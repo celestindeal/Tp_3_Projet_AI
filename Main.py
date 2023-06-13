@@ -42,7 +42,7 @@ def Soleveur_puissanse_quatre (Grid :Grid, couleur :int) :  # A faire
 
 def jouer(grid: Grid, moi : Jeton, adversaire : Jeton, profondeur : int) :
     while not grid.isFeuille() and not Soleveur_puissanse_quatre(grid, moi.couleur) and not Soleveur_puissanse_quatre(grid, adversaire.couleur):
-        valeur = MinMax(profondeur, grid)
+        valeur = MinMax(profondeur, grid, adversaire)
         grid.play(valeur, adversaire)
         print(grid.toString())
         
@@ -104,33 +104,60 @@ joueurRouge = Jeton(Jeton.ROUGE)
 # print(MinMax(1,grid))
 # print(grid.toString())
 
-jouer(grid, joueurJaune, joueurRouge, 2)
+jouer(grid, joueurJaune, joueurRouge, 1)
 
 
 
 
 
-"""
-tableau = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0]
-]
 
-tableau2 = [
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 1, 0, 0, 0, 0],
-    [0, 0, 2, 1, 0, 0, 0],
-    [0, 0, 2, 2, 0, 0, 0],
-    [1, 1, 2, 2, 2, 0, 1]
-]
+# tableau = [
+#     [0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0]
+# ]
 
-grid.grid = tableau2
-print(grid.toString())
-print(grid.eval(Jeton.JAUNE))
-print(grid.eval(Jeton.ROUGE))
-"""
+# tableau2 = [
+#     [0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 1, 0, 0, 0, 0],
+#     [0, 0, 2, 1, 0, 0, 0],
+#     [0, 0, 2, 2, 0, 0, 0],
+#     [1, 1, 2, 2, 2, 0, 1]
+# ]
+
+# tableau3 = [
+#     [0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0],
+#     [2, 0, 0, 0, 0, 0, 0],
+#     [1, 1, 2, 2, 2, 1, 0],
+#     [2, 2, 1, 1, 1, 2, 0],
+#     [2, 2, 1, 2, 1, 1, 1]
+# ]
+
+# tableau4 = [
+#     [0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 0, 0],
+#     [0, 0, 0, 0, 0, 2, 0],
+#     [2, 0, 1, 1, 1, 2, 0]
+# ]
+
+# tab3 ^
+# . . . . . . .
+# . . . . . . .
+# X . . . X . .
+# O O X X X O .
+# X X O O O X .
+# X X O X O O O
+
+
+
+# grid.grid = tableau2
+# print(grid.toString())
+# #print(grid.eval(Jeton(Jeton.JAUNE)))
+# print(grid.eval(Jeton(Jeton.ROUGE)))

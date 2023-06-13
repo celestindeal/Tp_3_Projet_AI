@@ -58,13 +58,17 @@ class Grid:
         return len(self.colonnePossible()) == 0
 
 
-    def eval(self, couleur :int):
-        couleurInversee = Jeton.ROUGE
-        if couleur == Jeton.ROUGE:
-            couleurInversee = Jeton.JAUNE
+    def eval(self, couleur :Jeton):
+        
         eval = Eval2(self.grid)
-        print(eval.eval1(couleur))
-        print(eval.eval1(couleurInversee))
-        return eval.eval1(couleur) - eval.eval1(couleurInversee)
+
+        a = eval.eval1(couleur.couleur)
+        #print('---')
+        eval.total = 0
+        couleur.inverserCouleur()
+        b = eval.eval1(couleur.couleur)
+        print(">>>", a)
+        print(">>>", b)
+        return a - b
 
                         

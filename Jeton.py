@@ -18,3 +18,6 @@ class Jeton :
     def setCouleur(self, couleur):
         """Méthode qui modifie la couleur du jeton"""
         self.couleur = couleur
+    
+    def inverserCouleur(self):
+        self.couleur = int(not bool(self.couleur - 1)) + 1
