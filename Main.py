@@ -104,4 +104,33 @@ joueurRouge = Jeton(Jeton.ROUGE)
 # print(MinMax(1,grid))
 # print(grid.toString())
 
-jouer(grid, joueurJaune, joueurRouge, 3)
+jouer(grid, joueurJaune, joueurRouge, 2)
+
+
+
+
+
+"""
+tableau = [
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0]
+]
+
+tableau2 = [
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 2, 1, 0, 0, 0],
+    [0, 0, 2, 2, 0, 0, 0],
+    [1, 1, 2, 2, 2, 0, 1]
+]
+
+grid.grid = tableau2
+print(grid.toString())
+print(grid.eval(Jeton.JAUNE))
+print(grid.eval(Jeton.ROUGE))
+"""

@@ -9,6 +9,7 @@ jetonJ = Jeton(Jeton.JAUNE)
 
 def MinMax(profondeur, grid:Grid) :
     eval, action = JoueurMax(grid, profondeur)
+    print(eval)
     return action
 
 
