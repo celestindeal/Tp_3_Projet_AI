@@ -1,6 +1,8 @@
+from Alpha_beta import Alpha_beta
 from Grid import Grid
 from Jeton import Jeton
 from Eval import eval_grid
+from MinMax import MinMax
 from MinMax import MinMax
 
 # la colonne est un entier entre 0 et 6
@@ -8,15 +10,9 @@ from MinMax import MinMax
 # pour la grid[ligne][colonne]
 
 
-
-
-
-
-
-
 def jouer(grid: Grid, moi : Jeton, adversaire : Jeton, profondeur : int) :
     while not grid.isFeuille() and not grid.Soleveur_puissanse_quatre(moi.couleur) and not grid.Soleveur_puissanse_quatre(adversaire.couleur):
-        valeur = MinMax(profondeur, grid)
+        valeur = Alpha_beta(profondeur, grid)
         grid.play(valeur, adversaire)
         print(grid.toString())
         
@@ -31,9 +27,7 @@ def jouer(grid: Grid, moi : Jeton, adversaire : Jeton, profondeur : int) :
 
 
 
-grid = Grid()
-joueurJaune = Jeton(Jeton.JAUNE)
-joueurRouge = Jeton(Jeton.ROUGE)
+
 # grid.play(0, joueurRouge)
 # grid.play(0, joueurRouge)
 # grid.play(0, joueurJaune)
@@ -78,7 +72,13 @@ joueurRouge = Jeton(Jeton.ROUGE)
 # print(MinMax(1,grid))
 # print(grid.toString())
 
-jouer(grid, joueurJaune, joueurRouge, 4)
+
+
+grid = Grid()
+joueurJaune = Jeton(Jeton.JAUNE)
+joueurRouge = Jeton(Jeton.ROUGE)
+# print( " O pour jouer contre l'ordinateur, \n 1 pour jouer contre un autre joueur : ")
+jouer(grid, joueurJaune, joueurRouge, 8)
 
 
 
