@@ -31,7 +31,6 @@ class Grid:
 
 
     def toString(self) -> str:
-        ()
         text = "O : Jaune\nX : Rouge\n\n"
         for i in self.grid:
             for j in i:
@@ -55,20 +54,47 @@ class Grid:
         return liste
     
     def isFeuille(self):
-        return len(self.colonnePossible()) == 0
+        return len(self.colonnePossible()) == 0 or self.Soleveur_puissanse_quatre(Jeton.ROUGE) or self.Soleveur_puissanse_quatre(Jeton.JAUNE)
 
 
-    def eval(self, couleur :Jeton):
+    def eval(self, couleur :int):
         
         eval = Eval2(self.grid)
 
-        a = eval.eval1(couleur.couleur)
+        a = eval.eval1(couleur)
         #print('---')
         eval.total = 0
-        couleur.inverserCouleur()
-        b = eval.eval1(couleur.couleur)
-        print(">>>", a)
-        print(">>>", b)
+        b = eval.eval1(int(not bool(couleur - 1)) + 1)
+        #print(">>>", a)
+        #print(">>>", b)
         return a - b
+    
+    def Soleveur_puissanse_quatre (self, couleur :int) :  # A faire
+    
+            # Vérification des lignes
+            for i in range(6):
+                for j in range(4):
+                    if self.grid[i][j] == couleur and  self.grid[i][j+1] == couleur and  self.grid[i][j+2] == couleur and  self.grid[i][j+3] == couleur:
+                        return True
 
-                        
+            # Vérification des colonnes
+            for i in range(3):
+                for j in range(7):
+                    if  self.grid[i][j] == couleur and  self.grid[i+1][j] == couleur and  self.grid[i+2][j] == couleur and  self.grid[i+3][j] == couleur:
+                        return True
+
+            # Vérification des diagonales ascendantes
+            for i in range(3):
+                for j in range(4):
+                    if  self.grid[i][j] == couleur and  self.grid[i+1][j+1] == couleur and  self.grid[i+2][j+2] == couleur and  self.grid[i+3][j+3] == couleur:
+                        return True
+
+            # Vérification des diagonales descendantes
+            for i in range(3, 6):
+                for j in range(4):
+                    if  self.grid[i][j] == couleur and  self.grid[i-1][j+1] == couleur and  self.grid[i-2][j+2] == couleur and  self.grid[i-3][j+3] == couleur:
+                        return True
+
+            return False
+
+                                

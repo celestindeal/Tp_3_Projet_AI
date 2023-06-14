@@ -1,50 +1,54 @@
 
 from Grid import Grid
 from Jeton import Jeton
-from Eval import eval_grid
+from Eval import evaluation
 import math
 
 jetonR = Jeton(Jeton.ROUGE)
 jetonJ = Jeton(Jeton.JAUNE)
 
-def MinMax(profondeur, grid:Grid, nextJ: Jeton) :
-    eval, action = JoueurMax(grid, profondeur, nextJ)
-    print(eval)
+def MinMax(profondeur, grid:Grid) :
+    eval, action = JoueurMax(grid, profondeur, Jeton.ROUGE)
+    print(eval, "|", action)
     return action
 
 
-# JoueurMax sera le joueur Rougee
+# JoueurMax sera le joueur Rouge
 
-def JoueurMax(n: Grid, p, joueur: Jeton):
+def JoueurMax(n: Grid, p, couleur: int):
     if n.isFeuille() or p == 0:
-        return n.eval(joueur), None
-        #return eval_grid(n,jetonR.couleur,jetonJ.couleur), None
+        bleh = n.eval(couleur)
+        #print(">", bleh)
+        return bleh, None
+        #return evaluation(n,jetonR.couleur), None
     u = -math.inf
     a = None
     for i in n.colonnePossible():
-        n.play(i, joueur)
-        joueur.inverserCouleur()
-        eval, _ = JoueurMin(n, p - 1, joueur)
+        n.play(i, jetonR)
+        eval, _ = JoueurMin(n, p - 1, couleur)
         n.remove_token(i)
         if eval > u:
+            #print(eval, p)
             u = eval
             a = i           #af = i car c'est l'action à faire
 
     return u, a
 
 # JoueurMin sera le joueur Jaune
-def JoueurMin(n:Grid, p, joueur: Jeton):
+def JoueurMin(n:Grid, p, couleur):
     if n.isFeuille() or p == 0:
-        return n.eval(joueur), None
-        #return eval_grid(n,jetonJ.couleur,jetonR.couleur), None
+        bleh = n.eval(couleur)
+        #print("<", bleh)
+        return bleh, None
+        #return evaluation(n,jetonJ.couleur), None
     u = math.inf
     a = None
     for i in n.colonnePossible():
-        n.play(i, joueur)
-        joueur.inverserCouleur()
-        eval, _ = JoueurMax(n, p - 1, joueur)
+        n.play(i, jetonJ)
+        eval, _ = JoueurMax(n, p - 1, couleur)
         n.remove_token(i)
         if eval < u:
+            #print(eval, p)
             u = eval
             a = i           #af = i car c'est l'action à faire
             

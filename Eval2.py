@@ -102,13 +102,11 @@ class Eval2:
             self.countVide += 1
         else:
             self.get_total(i, j)
-            self.reset()
             return
 
         if (iEnd != None and i == iEnd) or (jEnd != None and j == jEnd):
             #print(i, j)
             self.get_total(i, j)
-            self.reset()
 
     
     def get_total(self, i, j) -> int:
@@ -125,4 +123,5 @@ class Eval2:
         if self.count == 4:
             #print(1000, i, j)
             self.total += 1000
+        self.reset()
         
