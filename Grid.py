@@ -59,7 +59,7 @@ class Grid:
 
     def eval(self, couleur :int):
         
-        eval = Eval2(self.grid)
+        eval = Eval2(self)
 
         a = eval.eval1(couleur)
         #print('---')

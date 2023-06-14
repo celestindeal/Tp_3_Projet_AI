@@ -12,7 +12,7 @@ from neud import State
 # pour la grid[ligne][colonne]
 
 
-def jouer(Algo:int,grid: Grid, moi : Jeton, adversaire : Jeton, profondeur : int) :
+def jouer_compte_ordi(Algo:int,grid: Grid, moi : Jeton, adversaire : Jeton, profondeur : int) :
     while not grid.isFeuille() and not grid.Soleveur_puissanse_quatre(moi.couleur) and not grid.Soleveur_puissanse_quatre(adversaire.couleur):
         valeur = 0
         if Algo == 0:
@@ -27,6 +27,7 @@ def jouer(Algo:int,grid: Grid, moi : Jeton, adversaire : Jeton, profondeur : int
         
         valeur = input("Veuillez entrer une valeur : ")
         grid.play(int(valeur)- 1, moi)
+        print(grid.toString())
 
     if grid.Soleveur_puissanse_quatre(moi.couleur):
         print("J'ai gagné !")
@@ -34,6 +35,31 @@ def jouer(Algo:int,grid: Grid, moi : Jeton, adversaire : Jeton, profondeur : int
         print("J'ai perdu !")
     
 
+def defi_ordi(Algo:int, profondeur : int ,Algo1:int, profondeur1 : int, couleur : Jeton, couleur1 : Jeton ,grid: Grid) :
+    valeur = 0
+    while not grid.isFeuille() and not grid.Soleveur_puissanse_quatre(couleur.couleur) and not grid.Soleveur_puissanse_quatre(couleur1.couleur):
+       
+        if Algo == 0:
+            valeur = MinMax(profondeur, grid)
+        elif Algo == 1:
+            valeur = Alpha_beta(profondeur, grid)
+        else:
+            state = State(couleur, copy.deepcopy(grid))
+            valeur = UTCSearch(state, int(profondeur))
+        grid.play(valeur, couleur)
+        print(grid.toString())
+
+        if Algo1 == 0:
+            valeur = MinMax(profondeur1, grid)
+        elif Algo1 == 1:
+            valeur = Alpha_beta(profondeur1, grid)
+        else:
+            state = State(couleur1, copy.deepcopy(grid))
+            valeur = UTCSearch(state, int(profondeur1))
+        grid.play(valeur, couleur1)
+        print(grid.toString())
+        
+        
 
 
 
@@ -48,7 +74,18 @@ joueurRouge = Jeton(Jeton.ROUGE)
 print( " O pour jouer contre l'ordinateur, \n 1 pour faire s'affronter les ordinateurs entre eux ")
 valeur = input("Veuillez entrer une valeur : ")
 if( int(valeur) ):
-    print("cette methode n'est pas encore dévelopée")
+    print("Pour le premier joueur : \n 0 MinMax, \n 1 Alpha Beta \n 2 MCTS ")
+    algo = input("Veuillez entrer une valeur : ")
+    print("Choisis ton niveau ")
+    niveau = input("Veuillez entrer une valeur : ")
+
+    print("Pour le premier joueur : \n 0 MinMax, \n 1 Alpha Beta \n 2 MCTS ")
+    algo1 = input("Veuillez entrer une valeur : ")
+    print("Choisis ton niveau ")
+    niveau1 = input("Veuillez entrer une valeur : ")
+
+    defi_ordi(int(algo), int(niveau), int(algo1), int(niveau1), joueurJaune, joueurRouge, grid)
+    
 else :
     print( " 0 jouer contre MinMax, \n 1 jouer contre Alpha Beta \n 2 jouer contre MCTS ")
     algo = input("Veuillez entrer une valeur : ")
@@ -56,15 +93,15 @@ else :
     if( algo == 0 ):
         print("Choisis ton niveau entre 1 et 8")
         niveau = input("Veuillez entrer une valeur : ")
-        jouer(algo,grid, joueurJaune, joueurRouge, int(niveau))
+        jouer_compte_ordi(algo,grid, joueurJaune, joueurRouge, int(niveau))
     elif( algo == 1 ):
         print("Choisis ton niveau entre 1 et 8")
         niveau = input("Veuillez entrer une valeur : ")
-        jouer(algo,grid, joueurJaune, joueurRouge, int(niveau))
+        jouer_compte_ordi(algo,grid, joueurJaune, joueurRouge, int(niveau))
     elif( algo == 2 ):
         print("Choisis ton niveau entre 1 et 100")
         niveau = input("Veuillez entrer une valeur : ")
-        jouer(algo,grid, joueurJaune, joueurRouge, int(niveau) * 100)
+        jouer_compte_ordi(algo,grid, joueurJaune, joueurRouge, int(niveau) * 100)
 
 
 
