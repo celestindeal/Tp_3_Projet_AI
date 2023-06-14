@@ -120,7 +120,7 @@ class Eval2:
         if self.count == 3 and self.countVide >= 1:
             #print(50, i, j)
             self.total += 50
-        if self.count == 4:
+        if self.count == 4 and self.countVide == 0:
             #print(1000, i, j)
             self.total += 1000
         self.reset()
