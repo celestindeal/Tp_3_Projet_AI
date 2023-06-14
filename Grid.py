@@ -15,9 +15,13 @@ class Grid:
     
     def play(self, column, jeton):
         for i in range(5, -1, -1):
-            if self.grid[i][column] == Jeton.VIDE:
-                self.grid[i][column] = jeton.couleur
-                return True
+            try:
+                if self.grid[i][column] == Jeton.VIDE:
+                    self.grid[i][column] = jeton.couleur
+                    return True
+            except: 
+                print(self.grid[i][column])
+                
         return False
     
     def remove_token(self, column):

@@ -48,16 +48,22 @@ def defi_ordi(Algo:int, profondeur : int ,Algo1:int, profondeur1 : int, couleur 
             valeur = UTCSearch(state, int(profondeur))
         grid.play(valeur, couleur)
         print(grid.toString())
-
-        if Algo1 == 0:
-            valeur = MinMax(profondeur1, grid)
-        elif Algo1 == 1:
-            valeur = Alpha_beta(profondeur1, grid)
-        else:
-            state = State(couleur1, copy.deepcopy(grid))
-            valeur = UTCSearch(state, int(profondeur1))
-        grid.play(valeur, couleur1)
-        print(grid.toString())
+        
+        if not grid.Soleveur_puissanse_quatre(couleur.couleur):
+            if Algo1 == 0:
+                valeur = MinMax(profondeur1, grid)
+            elif Algo1 == 1:
+                valeur = Alpha_beta(profondeur1, grid)
+            else:
+                state = State(couleur1, copy.deepcopy(grid))
+                valeur = UTCSearch(state, int(profondeur1))
+            grid.play(valeur, couleur1)
+            print(grid.toString())
+    
+    if grid.Soleveur_puissanse_quatre(couleur.couleur):
+        print("ALgo à gagné !")
+    elif grid.Soleveur_puissanse_quatre(couleur1.couleur):
+        print("ALgo1 à gagné !")
         
         
 
